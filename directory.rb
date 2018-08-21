@@ -62,10 +62,8 @@ def interactive_menu
   loop do
     #Print the menu and ask the user what to do
     print_menu
-    #read the input and turn it into a variable
-    selection = gets.chomp
     #do what user selected
-    process(selection)
+    process(gets.chomp)
   end
 end
 
