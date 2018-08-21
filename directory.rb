@@ -38,7 +38,7 @@ end
 #only printing students whose name is shorter than 12 characters
 def print(students)
   students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].count < 12
+    puts "#{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12
   end
 end
 def print_footer(names)
