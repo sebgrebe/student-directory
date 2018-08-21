@@ -50,12 +50,12 @@ end
 
 def print(students)
   students.each do |student|
-    puts "#{student[:name]}, #{student[:cohort]} cohort".center(45)
+    puts "#{student[:name]}, #{student[:cohort]} cohort"
   end
 end
 
 def print_footer(names)
-  puts "Overall we have #{names.count} great students".center(45)
+  puts "Overall we have #{names.count} great students"
 end
 
 def interactive_menu
