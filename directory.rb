@@ -42,8 +42,8 @@ students_fixed = [
 ]
 
 # students = input_students
-students = students_fixed
-
+# students = students_fixed
+students = [{name: "Norman Bates", cohort: :december}]
 #methods
 def print_header
   puts "The students of Villains Academy"
@@ -71,7 +71,8 @@ def print(students)
   end
 end
 def print_footer(names)
-  puts "Overall we have #{names.count} great students"
+  students_numerus = (names.count == 1) ? "student" : "students"
+  puts "Overall we have #{names.count} great #{students_numerus}"
 end
 #call methods
 print_header
