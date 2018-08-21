@@ -1,7 +1,7 @@
 #Asking user for student names and cohort
 def input_students
   students = []
-  name = input_name()
+  name = input_name
   while !name.empty? do
     cohort = input_cohort
     if cohort.empty?
@@ -10,9 +10,19 @@ def input_students
     else
       students << {name: name.to_sym, cohort: cohort.to_sym}
     end
-    name = input_name()
+    name = input_name
   end
   students
+end
+
+def input_name
+  puts "Enter the name of the student (hit return twice to finish)"
+  name = gets.chomp
+end
+
+def input_cohort
+  puts "Enter the name of the cohort"
+  cohort = gets.chomp
 end
 
 #fixed set of students
