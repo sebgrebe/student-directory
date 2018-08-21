@@ -18,6 +18,5 @@ puts "-------------"
 students.each do |student|
   puts student
 end
-
 #Now we print the number of students
 puts "Overall we have #{students.count} great students"
