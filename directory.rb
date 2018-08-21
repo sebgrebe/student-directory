@@ -1,12 +1,16 @@
-#Asking user for student names
+#Asking user for student names and cohort
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
   students = []
-  name = gets.chomp
+  name = input_name()
   while !name.empty? do
-    students << {name: name, cohort: "November"}
-    name = gets.chomp
+    cohort = input_cohort
+    if cohort.empty?
+      #set November as default cohort
+      students << {name: name.to_sym, cohort: "November"}
+    else
+      students << {name: name.to_sym, cohort: cohort.to_sym}
+    end
+    name = input_name()
   end
   students
 end
