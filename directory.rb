@@ -30,19 +30,19 @@ end
 students_fixed = [
   {name: "Dr. Hannibal Lecter", cohort: :november},
   {name: "Darth Vader", cohort: :november},
-  {name: "Nurse Ratched", cohort: :november},
-  {name: "Michael Corleone", cohort: :november},
-  {name: "Alex DeLarge", cohort: :november},
-  {name: "The Wicked Witch of the West", cohort: :november},
-  {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :november},
-  {name: "The Joker", cohort: :november},
-  {name: "Joffrey Baratheon", cohort: :november},
-  {name: "Norman Bates", cohort: :november}
+  {name: "Nurse Ratched", cohort: :august},
+  {name: "Michael Corleone", cohort: :august},
+  {name: "Alex DeLarge", cohort: :april},
+  {name: "The Wicked Witch of the West", cohort: :april},
+  {name: "Terminator", cohort: :april},
+  {name: "Freddy Krueger", cohort: :december},
+  {name: "The Joker", cohort: :december},
+  {name: "Joffrey Baratheon", cohort: :december},
+  {name: "Norman Bates", cohort: :december}
 ]
 
-students = input_students
-# students = students_fixed
+# students = input_students
+students = students_fixed
 
 #methods
 def print_header
@@ -50,14 +50,28 @@ def print_header
   puts "-------------"
 end
 
-#center student name
+#Print students grouped by cohort
 def print(students)
+  cohorts = Hash.new
   students.each do |student|
-    puts "#{student[:name]}, #{student[:cohort]} cohort".center(45)
+    if cohorts[student[:cohort]] == nil
+      cohorts[student[:cohort]] = [student[:name]]
+    else
+      cohort = cohorts[student[:cohort]]
+      cohort << student[:name]
+      cohorts[student[:cohort]] = cohort
+    end
+  end
+  cohorts.each do |cohort, students|
+    puts "Students in the #{cohort} cohort:"
+    students.each do |student|
+      puts student
+    end
+    puts "--------------"
   end
 end
 def print_footer(names)
-  puts "Overall we have #{names.count} great students".center(45)
+  puts "Overall we have #{names.count} great students"
 end
 #call methods
 print_header
