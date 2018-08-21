@@ -18,12 +18,12 @@ end
 
 def input_name
   puts "Enter the name of the student (hit return twice to finish)"
-  name = gets.chomp
+  name = gets[0..-2]
 end
 
 def input_cohort
   puts "Enter the name of the cohort"
-  cohort = gets.chomp
+  cohort = gets[0..-2]
 end
 
 #fixed set of students
@@ -41,9 +41,9 @@ students_fixed = [
   {name: "Norman Bates", cohort: :december}
 ]
 
-# students = input_students
+students = input_students
 # students = students_fixed
-students = [{name: "Norman Bates", cohort: :december}]
+# students = [{name: "Norman Bates", cohort: :december}]
 #methods
 def print_header
   puts "The students of Villains Academy"
