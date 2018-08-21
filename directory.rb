@@ -1,14 +1,29 @@
-#Asking user for student names
+#Asking user for student names and cohort
+
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
   students = []
-  name = gets.chomp
+  name = input_name()
   while !name.empty? do
-    students << {name: name, cohort: "November"}
-    name = gets.chomp
+    cohort = input_cohort
+    if cohort.empty?
+      #set November as default cohort
+      students << {name: name.to_sym, cohort: "November"}
+    else
+      students << {name: name.to_sym, cohort: cohort.to_sym}
+    end
+    name = input_name()
   end
   students
+end
+
+def input_name
+  puts "Enter the name of the student (hit return twice to finish)"
+  name = gets.chomp
+end
+
+def input_cohort
+  puts "Enter the name of the cohort"
+  cohort = gets.chomp
 end
 
 #fixed set of students
@@ -26,8 +41,8 @@ students_fixed = [
   {name: "Norman Bates", cohort: :november}
 ]
 
-# students = input_students
-students = students_fixed
+students = input_students
+# students = students_fixed
 
 #methods
 def print_header
