@@ -35,16 +35,14 @@ def print_header
   puts "-------------"
 end
 
-#print students using loop
+#center student name
 def print(students)
-  i = 0
-  while i < students.count do
-    puts "#{students[i][:name]} (#{students[i][:cohort]} cohort)"
-    i += 1
+  students.each do |student|
+    puts "#{student[:name]}, #{student[:cohort]} cohort".center(45)
   end
 end
 def print_footer(names)
-  puts "Overall we have #{names.count} great students"
+  puts "Overall we have #{names.count} great students".center(45)
 end
 #call methods
 print_header
