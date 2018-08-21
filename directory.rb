@@ -48,7 +48,7 @@ def print_header
   puts "-------------"
 end
 
-def print
+def print_student_list
   @students.each do |student|
     puts "#{student[:name]}, #{student[:cohort]} cohort"
   end
@@ -76,7 +76,7 @@ end
 def show_students
   if @students.count > 0
     print_header
-    print
+    print_student_list
     print_footer
   else
     nil
