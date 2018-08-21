@@ -1,18 +1,19 @@
+@students = [] #accessible to all methods
+
 #Asking user for student names and cohort
 def input_students
-  students = []
   name = input_name
   while !name.empty? do
     cohort = input_cohort
     if cohort.empty?
       #set November as default cohort
-      students << {name: name.to_sym, cohort: "November"}
+      @students << {name: name.to_sym, cohort: "November"}
     else
-      students << {name: name.to_sym, cohort: cohort.to_sym}
+      @students << {name: name.to_sym, cohort: cohort.to_sym}
     end
     name = input_name
   end
-  students
+  @students
 end
 
 def input_name
@@ -42,49 +43,60 @@ students_fixed = [
 
 # students = students_fixed
 
-#methods
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
 end
 
-def print(students)
-  students.each do |student|
+def print
+  @students.each do |student|
     puts "#{student[:name]}, #{student[:cohort]} cohort"
   end
 end
 
-def print_footer(names)
-  puts "Overall we have #{names.count} great students"
+def print_footer
+  puts "Overall we have #{@students.count} great students"
 end
 
 def interactive_menu
-  students = []
   loop do
     #Print the menu and ask the user what to do
-    puts "1. Input the students"
-    puts "2. Show the students"
-    puts "9. Exit"
+    print_menu
     #read the input and turn it into a variable
     selection = gets.chomp
     #do what user selected
-    case selection
-    when "1"
-      students = input_students
-    when "2"
-      if students.count > 0
-        print_header
-        print(students)
-        print_footer(students)
-      else
-        nil
-      end
-    when "9"
-      exit
-    else
-      puts "I don't know what you meant, try again"
-    end
+    process(selection)
   end
 end
+
+def print_menu
+  puts "1. Input the students"
+  puts "2. Show the students"
+  puts "9. Exit"
+end
+
+def show_students
+  if @students.count > 0
+    print_header
+    print
+    print_footer
+  else
+    nil
+  end
+end
+
+def process(selection)
+  case selection
+  when "1"
+    @students = input_students
+  when "2"
+    show_students
+  when "9"
+    exit
+  else
+    puts "I don't know what you meant, try again"
+  end
+end
+
 
 interactive_menu
