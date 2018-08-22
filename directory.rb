@@ -1,3 +1,5 @@
+require('csv')
+
 @students = [] #accessible to all methods
 @files_loaded = []
 
@@ -19,17 +21,14 @@ def input_students
 end
 
 def load_students(filename = "students.csv")
+  #if file has already been loaded, leave method
+  if @files_loaded.include? filename
+    message("File already loaded")
+    return nil
+  end
   #open file for reading
-  File.open(filename, "r") do |file|
-    if @files_loaded.include? filename
-      message("File already loaded")
-      return nil
-    end
-    # load file into students variable
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
-      add_student(name, cohort)
-    end
+  CSV.foreach(filename) do |line|
+    add_student(line[0], line[1])
   end
   message("Loaded #{@students.count} students from #{filename}")
   add_file_to_loaded(filename)
@@ -132,14 +131,13 @@ end
 
 def save_students
   #open file for writing
-  File.open(input_filename("save to"), "w") do |file|
+  file_name = input_filename("save to")
+  CSV.open(file_name, "wb") do |csv|
     #put array into lines of strings and add to File
     @students.each do |student|
-      student_data = [student[:name], student[:cohort]]
-      csv_line = student_data.join(",")
-      file.puts csv_line
+      csv << [student[:name], student[:cohort]]
     end
-  message("Students saved to #{File.basename(file)}")
+  message("Students saved to #{file_name}")
   end
 end
 
