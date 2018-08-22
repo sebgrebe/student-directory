@@ -20,17 +20,17 @@ end
 
 def load_students(filename = "students.csv")
   #open file for reading
-  file = File.open(filename, "r")
-  if @files_loaded.include? filename
-    message("File already loaded")
-    return nil
+  File.open(filename, "r") do |file|
+    if @files_loaded.include? filename
+      message("File already loaded")
+      return nil
+    end
+    # load file into students variable
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(",")
+      add_student(name, cohort)
+    end
   end
-  # load file into students variable
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    add_student(name, cohort)
-  end
-  file.close
   message("Loaded #{@students.count} students from #{filename}")
   add_file_to_loaded(filename)
 end
@@ -83,6 +83,7 @@ end
 
 def print_footer
   puts "Overall we have #{@students.count} great students"
+  puts
 end
 
 def interactive_menu
@@ -129,19 +130,17 @@ def show_students
   end
 end
 
-
-
 def save_students
   #open file for writing
-  file = File.open(input_filename("save to"), "w")
-  #put array into lines of strings and add to File
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
-  file.close
+  File.open(input_filename("save to"), "w") do |file|
+    #put array into lines of strings and add to File
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   message("Students saved to #{File.basename(file)}")
+  end
 end
 
 def input_filename(action)
