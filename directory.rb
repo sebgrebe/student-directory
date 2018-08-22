@@ -131,7 +131,10 @@ end
 
 def try_load_students
   filename = ARGV.first
-  return nil if filename == nil #get out of method if no filename was given
+  if filename == nil #get out of method if no filename was given
+    load_students
+    return nil
+  end
   if File.exists?(filename) #file of filename given exists
     load_students(filename)
     puts "Loaded #{@students.count} students from #{filename}"
