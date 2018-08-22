@@ -13,6 +13,7 @@ def input_students
     end
     name = input_name
   end
+  success_message("Students added")
   @students
 end
 
@@ -25,6 +26,7 @@ def load_students_from_file(filename = "students.csv")
     add_student(name, cohort)
   end
   file.close
+  success_message("Loaded #{@students.count} students from #{filename}")
 end
 
 def add_student(name,cohort)
@@ -127,6 +129,7 @@ def save_students
     file.puts csv_line
   end
   file.close
+  success_message("Students saved")
 end
 
 def load_students_on_startup
@@ -137,11 +140,14 @@ def load_students_on_startup
   end
   if File.exists?(filename) #file of filename given exists
     load_students_from_file(filename)
-    puts "Loaded #{@students.count} students from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist"
     exit
   end
+end
+
+def success_message(msg)
+  puts msg
 end
 
 load_students_on_startup
