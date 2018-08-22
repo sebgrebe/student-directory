@@ -7,13 +7,28 @@ def input_students
     cohort = input_cohort
     if cohort.empty?
       #set November as default cohort
-      @students << {name: name.to_sym, cohort: "November"}
+      add_student(name, "November")
     else
-      @students << {name: name.to_sym, cohort: cohort.to_sym}
+      add_student(name, cohort)
     end
     name = input_name
   end
   @students
+end
+
+def load_students(filename = "students.csv")
+  #open file for reading
+  file = File.open(filename, "r")
+  # load file into students variable
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(",")
+    add_student(name, cohort)
+  end
+  file.close
+end
+
+def add_student(name,cohort)
+  @students << {name: name, cohort: cohort.to_sym}
 end
 
 def input_name
@@ -100,17 +115,6 @@ def process(selection)
   else
     puts "I don't know what you meant, try again"
   end
-end
-
-def load_students(filename = "students.csv")
-  #open file for reading
-  file = File.open(filename, "r")
-  # load file into students variable
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
-  end
-  file.close
 end
 
 def save_students
