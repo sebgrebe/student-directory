@@ -16,7 +16,7 @@ def input_students
   @students
 end
 
-def load_students(filename = "students.csv")
+def load_students_from_file(filename = "students.csv")
   #open file for reading
   file = File.open(filename, "r")
   # load file into students variable
@@ -109,7 +109,7 @@ def process(selection)
   when "3"
     save_students
   when "4"
-    load_students
+    load_students_from_file
   when "9"
     exit
   else
@@ -129,14 +129,14 @@ def save_students
   file.close
 end
 
-def try_load_students
+def load_students_on_startup
   filename = ARGV.first
   if filename == nil #get out of method if no filename was given
-    load_students
+    load_students_from_file
     return nil
   end
   if File.exists?(filename) #file of filename given exists
-    load_students(filename)
+    load_students_from_file(filename)
     puts "Loaded #{@students.count} students from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist"
@@ -144,5 +144,5 @@ def try_load_students
   end
 end
 
-try_load_students
+load_students_on_startup
 interactive_menu
