@@ -18,12 +18,12 @@ end
 
 def input_name
   puts "Enter the name of the student (hit return twice to finish)"
-  name = gets.chomp
+  name = STDIN.gets.chomp
 end
 
 def input_cohort
   puts "Enter the name of the cohort"
-  cohort = gets.chomp
+  cohort = STDIN.gets.chomp
 end
 
 #fixed set of students
@@ -63,7 +63,7 @@ def interactive_menu
     #Print the menu and ask the user what to do
     print_menu
     #do what user selected
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -102,9 +102,9 @@ def process(selection)
   end
 end
 
-def load_students
+def load_students(filename = "students.csv")
   #open file for reading
-  file = File.open("students.csv", "r")
+  file = File.open(filename, "r")
   # load file into students variable
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
@@ -125,4 +125,17 @@ def save_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first
+  return nil if filename == nil #get out of method if no filename was given
+  if File.exists?(filename) #file of filename given exists
+    load_students(filename)
+    puts "Loaded #{@students.count} students from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist"
+    exit
+  end
+end
+
+try_load_students
 interactive_menu
